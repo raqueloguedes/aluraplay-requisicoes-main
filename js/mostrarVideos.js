@@ -1,6 +1,6 @@
 import { conectaApi } from "./conectaApi.js";
 
-const lista = document.querySelector("[data-lista]");
+const lista = document.querySelector("[data-lista]"); // o data- individualizar elementos e conseguir manipular o DOM
 
 function constroiCard() {
     video.className = "videos__item";
