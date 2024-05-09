@@ -25,9 +25,17 @@ async function criaVideo(titulo, descricao, url, imagem) { //add videos
     return conexaoConvertida;
 }
 
+async function buscaVideo(termoDeBusca) {
+    const conexao = await fetch(`http://localhost:3000/videos?q=${termoDeBusca}`)
+    const conexaoConvertida = conexao.json();
+
+    return conexaoConvertida;
+}
+
 export const conectaApi = {
     listaVideos,
-    criaVideo
+    criaVideo,
+    buscaVideo
 }
 
 //Requisições do tipo POST são usadas para enviar dados para a API. Por exemplo, criar um novo registro de usuário com: nome, idade e endereço de e-mail.
