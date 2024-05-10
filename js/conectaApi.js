@@ -1,12 +1,13 @@
 async function listaVideos() {
-    const conexao = await fetch("http://localhost:3000/videos")
+    const conexao = await fetch("http://localhost:3000/videos");
     const conexaoConvertida = await conexao.json();
 
     return conexaoConvertida;
 }
 // Para consumirmos uma API precisamos trabalhar com a assincronicidade, que nesse caso foi tratada com o async await. Em seguida, converter o retorno em JSON para objeto Javascript com o método .json(). Além de chamar a função para ela acontecer.
 
-async function criaVideo(titulo, descricao, url, imagem) { //add videos 
+async function criaVideo(titulo, descricao, url, imagem) { 
+    //add videos 
     const conexao = await fetch("http://localhost:3000/videos", {
         method: "POST",
         headers: {
@@ -14,20 +15,25 @@ async function criaVideo(titulo, descricao, url, imagem) { //add videos
         },
         body: JSON.stringify({
             titulo: titulo,
-            descricao: `${descricao} mil visualizações`,// aqui ele vai tornar a var em uma string
+            descricao: `${descricao} mil visualizações`,
+            // aqui ele vai tornar a var em uma string
             url: url,
             imagem: imagem
         })
     });
-
+    if (!conexao.ok) {
+//se conexão não ok mostrar mensagem
+        throw new Error("Não foi possível enviar o vídeo")
+    }
     const conexaoConvertida = conexao.json();
 
     return conexaoConvertida;
 }
 
-async function buscaVideo(termoDeBusca) {
-    const conexao = await fetch(`http://localhost:3000/videos?q=${termoDeBusca}`)
-    const conexaoConvertida = conexao.json();
+async function buscaVideo(termoDeBusca) { 
+    //barra de pesquisa
+    const conexao = await fetch(`http://localhost:3000/videos?q=${termoDeBusca}`);
+    const conexaoConvertida = await conexao.json();
 
     return conexaoConvertida;
 }

@@ -1,9 +1,11 @@
 import { conectaApi } from "./conectaApi.js";
 
-const lista = document.querySelector("[data-lista]"); // o data- individualizar elementos e conseguir manipular o DOM
+const lista = document.querySelector("[data-lista]"); 
+// o data- individualizar elementos e conseguir manipular o DOM
 
-function constroiCard(titulo, descricao, url, imagem) {
-    const video = document.createElement("li"); //class que usa no li
+export default function constroiCard(titulo, descricao, url, imagem) {
+    const video = document.createElement("li"); 
+    //class que usa no li
     //põe um html dentro desse elemento
     video.className = "videos__item"; 
     //usar `` para possibilitar usar ${} com as var dentro
@@ -15,15 +17,21 @@ function constroiCard(titulo, descricao, url, imagem) {
     <img src="${imagem}" alt="logo canal alura">
     <h3>${titulo}</h3>
     <p>${descricao}</p>
-</div>`//li conteudo
+</div>`
+//li conteudo
 
     return video;
 }
 
 async function listaVideos() {
-    const listaApi = await conectaApi.listaVideos();// vai retornar a lista do json
+    try {
+    const listaApi = await conectaApi.listaVideos();
+    // vai retornar a lista do json
     listaApi.forEach(elemento => lista.appendChild(
         constroiCard(elemento.titulo, elemento.descricao, elemento.url, elemento.imagem)))
+    } catch {
+        lista.innerHTML = `<h2 class="mensagem__titulo">Não foi possível carregar a lista de vídeos</h2>`
+    }
 }
 
 listaVideos();
